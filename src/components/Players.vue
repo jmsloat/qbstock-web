@@ -2,7 +2,7 @@
 	<div class="columns">
     <player-card
       v-for="player in players"
-      v-bind:player="player"
+      v-bind:player-name="player"
     ></player-card>
 	</div>
 </template>
@@ -13,8 +13,8 @@
   export default {
     name: 'players',
     components: {
-      PlayerCard,
-      'player-card': PlayerCard},
+      PlayerCard
+    },
     data : function() {
       return {
         players : [

@@ -1,9 +1,9 @@
 <template>
-  <div class="card column">
+  <div class="card">
 
     <header class="card-header">
       <p class="card-header-title">
-        {{player}}
+        {{playerName}}
       </p>
     </header>
 
@@ -20,7 +20,7 @@
 <script>
   export default {
     name: 'player-card',
-    props: ['player'],
+    props: ['player-name'],
   }
 </script>
 
