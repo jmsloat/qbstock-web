@@ -1,13 +1,24 @@
 <template>
   <div id="app">
-    <navbar></navbar>
-    <div class="container">
+  <navbar></navbar>
 
-      <div class="section">
-        <router-view></router-view>
-      </div>
-    </div>
+  <div class="section">
+    <div class="container">
+		  <router-view></router-view>
+		</div>
   </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>
+			      Copyright sloat 2017
+          </p>
+        </div>
+      </div>
+    </footer>
+    </div>
+
 </template>
 
 <script>

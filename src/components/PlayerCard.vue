@@ -1,18 +1,26 @@
 <template>
-  <div class="card">
+  <div class="column is-one-third">
+    <div class="card">
 
-    <header class="card-header">
-      <p class="card-header-title">
-        {{playerName}}
-      </p>
-    </header>
+      <header class="card-header">
+        <p class="card-header-title">
+          {{player.name}}
+        </p>
+      </header>
 
-    <div class="card-content">
+      <div class="card-content">
+          <div class="level content">
+              <div class="level-item">
+                <div>
+					        {{player.price}}
+                </div>
+              </div>
+              <div class="level-item">
+                Some player stuff here.
+              </div>
+          </div>
 
-      <div class="content">
-        Some player stuff here.
       </div>
-
     </div>
   </div>
 </template>
@@ -20,7 +28,7 @@
 <script>
   export default {
     name: 'player-card',
-    props: ['player-name'],
+    props: ['player'],
   }
 </script>
 
