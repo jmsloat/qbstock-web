@@ -19,14 +19,21 @@
                 Some player stuff here.
               </div>
           </div>
-
       </div>
+      <div class="card-footer">
+        <!-- worry about not showing these for all users later - once we've introduced the concept of a user -->
+        <buy-sell-button></buy-sell-button>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script>
+  import BuySellButton from "./BuySellButton";
+
   export default {
+    components: {BuySellButton},
     name: 'player-card',
     props: ['player'],
   }

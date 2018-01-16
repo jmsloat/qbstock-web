@@ -1,13 +1,16 @@
 <template>
 
   <div>
-    In the my team...
+    <players></players>
   </div>
 
 </template>
 
 <script>
+  import Players from "./Players";
+
   export default {
+    components: {Players},
     name: 'my-team'
   }
 </script>
