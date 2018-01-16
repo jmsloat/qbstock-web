@@ -20,10 +20,11 @@
               </div>
           </div>
       </div>
-      <div class="card-footer">
-        <!-- worry about not showing these for all users later - once we've introduced the concept of a user -->
-        <buy-sell-button></buy-sell-button>
-      </div>
+      <!-- worry about not showing these for all users later - once we've introduced the concept of a user -->
+      <buy-sell-button
+        :shares="player.shares">
+
+      </buy-sell-button>
 
     </div>
   </div>

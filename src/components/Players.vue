@@ -20,10 +20,10 @@
     data : function() {
       return {
         players : [
-          {id: 1, name: 'Player 1', price: '12.20'},
-          {id: 2, name: 'Player 2', price: '13.10'},
-          {id: 3, name: 'Player 4', price: '5.50'},
-          {id: 4, name: 'Player 6', price: '6.63'},
+          {id: 1, name: 'Player 1', price: '12.20', shares: 10},
+          {id: 2, name: 'Player 2', price: '13.10', shares: 22},
+          {id: 3, name: 'Player 4', price: '5.50', shares: 18},
+          {id: 4, name: 'Player 6', price: '6.63', shares: 33},
         ]
       }
     },
