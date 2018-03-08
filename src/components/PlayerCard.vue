@@ -12,7 +12,7 @@
           <div class="level content">
               <div class="level-item">
                 <div>
-					        {{player.price}}
+					{{player.price}}
                 </div>
               </div>
               <div class="level-item">

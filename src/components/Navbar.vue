@@ -5,7 +5,10 @@
       <router-link class="navbar-item" to="/myteam">My Team</router-link>
       <router-link class="navbar-item" to="/standings">Standings</router-link>
       <router-link class="navbar-item" to="/players">Players</router-link>
+    </div>
 
+    <div class="navbar-menu">
+      <router-link class="navbar-item" to="/login">Login</router-link>
     </div>
   </nav>
 </template>
