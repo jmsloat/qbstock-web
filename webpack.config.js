@@ -41,7 +41,10 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      // 'vue': 'vue/dist/vue.esm.js',
+      'src' : path.resolve(__dirname, './src'),
+      // 'componentss' : path.resolve(__dirname, './src/components')
     },
     extensions: ['*', '.js', '.vue', '.json']
   },

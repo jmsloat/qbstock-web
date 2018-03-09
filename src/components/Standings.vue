@@ -11,22 +11,24 @@
     </section>
     <table class="table is-hoverable is-fullwidth">
       <thead>
-        <th> Team </th>
-        <th> Money </th>
+      <tr>
+        <th> Team</th>
+        <th> Money</th>
+      </tr>
       </thead>
 
       <tbody>
       <tr>
-        <td> James </td>
-        <td> $500 </td>
+        <td> James</td>
+        <td> $500</td>
       </tr>
       <tr>
-        <td> Kevin </td>
-        <td> $400 </td>
+        <td> Kevin</td>
+        <td> $400</td>
       </tr>
       <tr>
-        <td> Joe </td>
-        <td> $22 </td>
+        <td> Joe</td>
+        <td> $22</td>
       </tr>
       </tbody>
     </table>
@@ -34,8 +36,14 @@
 </template>
 
 <script>
+  import StandingsRow from './StandingsRow'
+  import db from 'src/db'
+
   export default {
     name: 'standings',
+    components : {
+      StandingsRow
+    }
   }
 </script>
 

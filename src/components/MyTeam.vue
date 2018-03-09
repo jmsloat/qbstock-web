@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import Players from "./Players";
+  import Players from './Players';
 
   export default {
     components: {Players},

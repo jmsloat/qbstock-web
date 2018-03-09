@@ -9,16 +9,16 @@
       </header>
 
       <div class="card-content">
-          <div class="level content">
-              <div class="level-item">
-                <div>
-					{{player.price}}
-                </div>
-              </div>
-              <div class="level-item">
-                Some player stuff here.
-              </div>
+        <div class="level content">
+          <div class="level-item">
+            <div>
+              {{player.price}}
+            </div>
           </div>
+          <div class="level-item">
+            Some player stuff here.
+          </div>
+        </div>
       </div>
       <!-- worry about not showing these for all users later - once we've introduced the concept of a user -->
       <buy-sell-button
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import BuySellButton from "./BuySellButton";
+  import BuySellButton from './BuySellButton';
 
   export default {
     components: {BuySellButton},
