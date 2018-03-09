@@ -2,9 +2,9 @@
   <div class="columns is-multiline">
     <player-card
       v-if="useCards"
-      v-for="player in players"
+      v-for="player in playerlist"
       v-bind:player="player" :key="player.id"
-    ></player-card>
+    />
 
     <table class="table is-hoverable is-fullwidth">
       <thead>
@@ -17,11 +17,12 @@
       </tr>
       </thead>
       <tbody>
+
       <player-table-row
-        v-for="player in players"
+        v-for="player in playerlist"
         v-bind:player="player" :key="player.id"
-        v-if="!useCards">
-      </player-table-row>
+        v-if="!useCards"
+      />
       </tbody>
     </table>
 
@@ -31,21 +32,25 @@
 <script>
   import PlayerCard from './PlayerCard';
   import PlayerTableRow from './PlayerTableRow';
-  import db from 'src/db';
+  import {api} from 'src/api';
 
   export default {
     name: 'players',
     components: {
       PlayerTableRow,
       PlayerCard,
-      db
     },
     data: function () {
       return {
-        players: db.players,
-        'useCards': false
+        playerlist: [],
+        useCards: false
       }
     },
+
+    created: function() {
+      this.playerlist = api.get_roster(this.$route.params.teamid);
+    }
+
   }
 </script>
 

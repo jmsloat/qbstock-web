@@ -18,17 +18,11 @@
       </thead>
 
       <tbody>
-      <tr>
-        <td> James</td>
-        <td> $500</td>
-      </tr>
-      <tr>
-        <td> Kevin</td>
-        <td> $400</td>
-      </tr>
-      <tr>
-        <td> Joe</td>
-        <td> $22</td>
+      <tr
+        v-for="user in users"
+        v-on:click="redirect_to_team_page(user.id)">
+        <td>{{user.name}}</td>
+        <td>${{user.money}}</td>
       </tr>
       </tbody>
     </table>
@@ -37,14 +31,26 @@
 
 <script>
   import StandingsRow from './StandingsRow'
-  import db from 'src/db'
+  import {api} from 'src/api'
 
   export default {
     name: 'standings',
-    components : {
+    components: {
       StandingsRow
+    },
+    data: function () {
+      return {
+        users: api.get_users()
+      }
+    },
+    methods: {
+      redirect_to_team_page: function (user_id) {
+        console.log('redirecting to: ' + user_id);
+        this.$router.push({name: 'team', params: {teamid: user_id}})
+      }
     }
   }
+
 </script>
 
 <style scoped>
