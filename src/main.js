@@ -6,6 +6,7 @@ import App from './App.vue'
 import Standings from './components/Standings'
 import Players from './components/Players'
 import Team from './components/Team'
+import login from './components/login/login'
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,11 @@ const routes = [
     name: 'standings',
     path: '/standings',
     component: Standings
+  },
+  {
+    name: 'login',
+    path: '/login',
+    component: login
   },
   {
     path: '/players',
