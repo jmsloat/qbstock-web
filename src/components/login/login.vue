@@ -5,7 +5,7 @@
         <div class="box">
 
           <div class="title">Login</div>
-          <form @submit.prevent="login">
+          <form @submit.prevent="setLoginLoadingSpinnerOn">
             <div class="field">
               <div class="control">
                 <input class="input is-medium" required v-model="username" type="text" placeholder="Username"/>
@@ -18,7 +18,10 @@
               </div>
             </div>
 
-            <button class="button is-primary is-medium is-fullwidth" type="submit">Login</button>
+            <button v-bind:class="{'is-loading' : showingLoadingSpinner}"
+                    class="button is-primary is-medium is-fullwidth"
+                    type="submit" v-on:click="setLoginLoadingSpinnerOn">Login
+            </button>
           </form>
 
           <!--</div>-->
@@ -31,7 +34,19 @@
 
 <script>
   export default {
-    name: 'login.vue'
+    name: 'login',
+    data: function () {
+      return {
+        showingLoadingSpinner: false,
+        password: '',
+        username: ''
+      }
+    },
+    methods: {
+      setLoginLoadingSpinnerOn: function (event) {
+        this.showingLoadingSpinner = true;
+      }
+    }
   }
 </script>
 
