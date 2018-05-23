@@ -20,7 +20,7 @@
 
             <button v-bind:class="{'is-loading' : showingLoadingSpinner}"
                     class="button is-primary is-medium is-fullwidth"
-                    type="submit" v-on:click="setLoginLoadingSpinnerOn">Login
+                    type="submit" v-on:click="attemptToLogin">Login
             </button>
           </form>
 
@@ -43,6 +43,10 @@
       }
     },
     methods: {
+      attemptToLogin: function(event) {
+        this.setLoginLoadingSpinnerOn();
+        this.$api.login(this.username, this.password);
+      },
       setLoginLoadingSpinnerOn: function (event) {
         this.showingLoadingSpinner = true;
       }

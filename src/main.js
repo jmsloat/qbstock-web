@@ -8,6 +8,8 @@ import Players from './components/Players'
 import Team from './components/Team'
 import login from './components/login/login'
 
+import {api} from './api.js'
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -41,6 +43,7 @@ const router = new VueRouter({routes});
 const app = new Vue({
   el: '#app',
   router,
+  api,
   template: '<App/>',
   components: {App}
 });

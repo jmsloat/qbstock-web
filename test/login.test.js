@@ -1,17 +1,20 @@
 import login from '../src/components/login/login'
 import {mount} from 'vue-test-utils'
-import axios from 'axios'
-
-jest.mock('axios', () => ({
-  get: () => jest.fn(() => Promise.resolve({data: 3}))
-}));
 
 describe('Login Component Tests', () => {
 
   let component;
 
   beforeEach(() => {
-    component = mount(login, {});
+    const $api = {
+      login: jest.fn()
+    };
+
+    component = mount(login, {
+      mocks : {
+        $api
+      }
+    });
   });
 
   test('add 1 + 2 to equal 3', () => {
@@ -30,7 +33,7 @@ describe('Login Component Tests', () => {
     const button = component.find('button');
     button.trigger('click');
 
-    expect(axios.get).toBeCalled();
-  })
+    expect(component.vm.$api.login).toBeCalled();
+  });
 
 });
