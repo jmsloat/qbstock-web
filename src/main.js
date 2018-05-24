@@ -9,6 +9,7 @@ import Team from './components/Team'
 import login from './components/login/login'
 
 import {api} from './api.js'
+import {store} from './store.js'
 
 Vue.use(VueRouter);
 
@@ -44,6 +45,7 @@ const app = new Vue({
   el: '#app',
   router,
   api,
+  store,
   template: '<App/>',
   components: {App}
 });
