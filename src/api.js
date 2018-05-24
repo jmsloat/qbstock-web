@@ -1,6 +1,22 @@
 // fake database...
 // just return json
 
+import Vue from 'vue'
+
+// mixin for injection into components
+Vue.mixin({
+  beforeCreate() {
+    const options = this.$options;
+    if( options.api ){
+      this.$api = options.api;
+    }
+    else if (options.parent && options.parent.$api){
+      this.$api = options.parent.$api;
+    }
+
+  }
+});
+
 let rosters = [
   {
     id: 1,
@@ -40,7 +56,7 @@ let players = [
   {id: 2, tier: 2, name: 'Player 2', price: 13.10},
   {id: 3, tier: 2, name: 'Player 3', price: 5.50},
   {id: 4, tier: 3, name: 'Player 4', price: 6.63}
-];
+]
 
 let users = [
   {id: 1, name: 'James', money: 200.15},
@@ -50,6 +66,10 @@ let users = [
 ];
 
 let api = {
+
+  login : function(username, password) {
+    return Promise.reject('invalid username');
+  },
 
   get_roster: function (user_id) {
     let r = rosters.find(r => r.user_id === user_id);
