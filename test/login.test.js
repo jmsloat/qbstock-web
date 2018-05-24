@@ -5,15 +5,19 @@ describe('Login Component Tests', () => {
 
   let component;
   let $api;
+  let $route;
 
   beforeEach(() => {
     $api = {
-      login: jest.fn()
+      login: jest.fn(() => Promise.resolve())
     };
+
+    $route = {};
 
     component = mount(login, {
       mocks : {
-        $api
+        $api,
+        $route
       }
     });
   });
@@ -46,19 +50,42 @@ describe('Login Component Tests', () => {
     expect(component.vm.$api.login).toHaveBeenCalledWith('myusername', 'mypassword');
   });
 
-  test('failure to log-in displays login-failure message', () => {
-    $api.login = jest.fn(() => Promise.reject({data: true}))
-    loginErrorMessageIsShowing();
+  test('failure to log-in displays login-failure message', (done) => {
+    $api.login = jest.fn(() => Promise.reject({}));
+    attemptLogin();
+    loginErrorMessageIsShowing(done);
   });
 
-  function loginErrorMessageIsShowing() {
-    let error = component.find('p.error');
-    expect(error.exists()).toBe(true);
+  test('failure to log-in stops our spinner', (done) => {
+    $api.login = jest.fn(() => Promise.reject({}));
+    attemptLogin();
+    let button = component.find('button.is-loading');
+    expect(button.exists()).toBe(true);
+
+    component.vm.$nextTick();
+
+    return component.vm.$nextTick().then ( () => {
+      let button = component.find('button.is-loading');
+      expect(button.exists()).toBe(false);
+      done();
+    });
+  });
+
+  function loginErrorMessageIsShowing(done) {
+    return component.vm.$nextTick().then ( () => {
+      let error = component.find('div.notification.is-danger');
+      expect(error.exists()).toBe(true);
+      done();
+    });
   }
 
   function attemptLogin() {
     const button = component.find('button');
     button.trigger('click');
+  }
+
+  function getLoadingButton() {
+    return component.find('button.is-loading');
   }
 
 });

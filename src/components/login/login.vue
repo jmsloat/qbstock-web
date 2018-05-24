@@ -5,7 +5,8 @@
         <div class="box">
 
           <div class="title">Login</div>
-          <form @submit.prevent="setLoginLoadingSpinnerOn">
+          <div class="notification is-danger" v-if="this.error">Failed to login. Is your username / password correct?</div>
+          <form @submit.prevent="attemptToLogin">
             <div class="field">
               <div class="control">
                 <input class="input is-medium" required v-model="username" type="text" placeholder="Username"/>
@@ -38,14 +39,20 @@
     data: function () {
       return {
         showingLoadingSpinner: false,
+        error: false,
         password: '',
         username: ''
       }
     },
     methods: {
-      attemptToLogin: function(event) {
+      attemptToLogin: function (event) {
+        console.log('trying to login...');
         this.setLoginLoadingSpinnerOn();
-        this.$api.login(this.username, this.password);
+        this.$api.login(this.username, this.password)
+          .catch((err) => {
+            this.error = true;
+            this.showingLoadingSpinner = false
+          });
       },
       setLoginLoadingSpinnerOn: function (event) {
         this.showingLoadingSpinner = true;
