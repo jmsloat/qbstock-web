@@ -22,14 +22,11 @@ describe('Login Component Tests', () => {
     });
   });
 
-  test('add 1 + 2 to equal 3', () => {
-    expect(1 + 2).toBe(3);
-  });
-
   test('clicking the log-in button shows the loading spinner', () => {
-    expect(component.vm.showingLoadingSpinner).toBe(false);
+    let loginButton = component.find('button');
+    assertLoadingSpinnerIsNotShowing();
     attemptLogin();
-    expect(component.vm.showingLoadingSpinner).toBe(true);
+    assertLoadingSpinnerIsShowing();
   });
 
   test('logging in attempts to call login service', () => {
@@ -38,43 +35,45 @@ describe('Login Component Tests', () => {
     expect(component.vm.$api.login).toBeCalled();
   });
 
-  test('login passes the right username and password to the service', () => {
+  test('login passes the right username and password to the service', (done) => {
     const username = component.find('input[type="text"]');
     const password = component.find('input[type="password"]');
 
-    component.vm.username = 'myusername';
-    component.vm.password = 'mypassword';
+    // can't just test the data members, want to test the component - that the input
+    // is actually hooked up to the model and goes through the api call.
+    username.element.value = 'myusername';
+    username.trigger('input');
+    password.element.value = 'mypassword';
+    password.trigger('input');
 
     attemptLogin();
 
-    expect(component.vm.$api.login).toHaveBeenCalledWith('myusername', 'mypassword');
+    component.vm.$nextTick().then(() => {
+      expect(component.vm.$api.login).toHaveBeenCalledWith('myusername', 'mypassword');
+      done();
+    });
   });
 
   test('failure to log-in displays login-failure message', (done) => {
     $api.login = jest.fn(() => Promise.reject({}));
     attemptLogin();
-    loginErrorMessageIsShowing(done);
+    assertLoginErrorMessageIsShowing(done);
   });
 
   test('failure to log-in stops our spinner', (done) => {
     $api.login = jest.fn(() => Promise.reject({}));
     attemptLogin();
-    let button = component.find('button.is-loading');
-    expect(button.exists()).toBe(true);
-
-    component.vm.$nextTick();
+    assertLoadingSpinnerIsShowing();
 
     return component.vm.$nextTick().then ( () => {
-      let button = component.find('button.is-loading');
-      expect(button.exists()).toBe(false);
+      assertLoadingSpinnerIsNotShowing();
       done();
     });
   });
 
-  function loginErrorMessageIsShowing(done) {
+  function assertLoginErrorMessageIsShowing(done) {
     return component.vm.$nextTick().then ( () => {
-      let error = component.find('div.notification.is-danger');
-      expect(error.exists()).toBe(true);
+      expect(component.contains('div.notification.is-danger')).toBe(true);
       done();
     });
   }
@@ -84,8 +83,13 @@ describe('Login Component Tests', () => {
     button.trigger('click');
   }
 
-  function getLoadingButton() {
-    return component.find('button.is-loading');
+  function assertLoadingSpinnerIsShowing() {
+    expect(component.contains('button.is-loading')).toBe(true);
   }
+
+  function assertLoadingSpinnerIsNotShowing() {
+    expect(component.contains('button.is-loading')).toBe(false);
+  }
+
 
 });
