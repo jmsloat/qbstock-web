@@ -85,6 +85,17 @@ describe('Login Component Tests', () => {
     });
   });
 
+  test('successful login redirects to myteam page', (done) => {
+    $api.login = jest.fn(() => Promise.resolve({token: 'xyz12345', id: 54321}));
+    $route.push = jest.fn();
+    attemptLogin();
+
+    return component.vm.$nextTick().then(() => {
+      expect(component.vm.$route.push).toHaveBeenCalledWith('myteam');
+      done();
+    });
+  });
+
   function assertLoginErrorMessageIsShowing(done) {
     return component.vm.$nextTick().then(() => {
       expect(component.contains('div.notification.is-danger')).toBe(true);

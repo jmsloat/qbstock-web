@@ -7,10 +7,10 @@ import Vue from 'vue'
 Vue.mixin({
   beforeCreate() {
     const options = this.$options;
-    if( options.api ){
+    if (options.api) {
       this.$api = options.api;
     }
-    else if (options.parent && options.parent.$api){
+    else if (options.parent && options.parent.$api) {
       this.$api = options.parent.$api;
     }
 
@@ -66,9 +66,23 @@ let users = [
 ];
 
 let api = {
+  delay: function (t, v) {
+    return new Promise(function (resolve) {
+      setTimeout(resolve.bind(null, v), t)
+    })
+  },
 
-  login : function(username, password) {
-    return Promise.reject('invalid username');
+  login: function (username, password) {
+    console.log('logging in with username: ' + username);
+    if (username === 'jmsloat') {
+      return this.delay(1000).then(() => {
+        return Promise.resolve({token: 'xyz12345'});
+      });
+    }
+    else {
+      console.log('problem, no login');
+      return Promise.reject('invalid username');
+    }
   },
 
   get_roster: function (user_id) {
@@ -84,7 +98,7 @@ let api = {
     return users_players;
   },
 
-  get_users: function() {
+  get_users: function () {
     return users;
   }
 };

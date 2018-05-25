@@ -21,7 +21,7 @@
 
             <button v-bind:class="{'is-loading' : showingLoadingSpinner}"
                     class="button is-primary is-medium is-fullwidth"
-                    type="submit" v-on:click="attemptToLogin">Login
+                    type="submit">Login
             </button>
           </form>
 
@@ -46,14 +46,19 @@
     },
     methods: {
       attemptToLogin: function (event) {
-        console.log('trying to login...');
         this.setLoginLoadingSpinnerOn();
         this.$api.login(this.username, this.password)
           .then((response) => {
-            this.$store.token = response.token
+            console.log('successful promise resolution');
+            this.$store.token = response.token;
             this.$store.authenticated = true;
+            console.log('pushing route');
+
+            this.$router.push('myteam');
+            console.log('done');
           } )
           .catch((err) => {
+            console.log('handling promise error case');
             this.error = true;
             this.showingLoadingSpinner = false
           });
