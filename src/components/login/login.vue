@@ -49,6 +49,10 @@
         console.log('trying to login...');
         this.setLoginLoadingSpinnerOn();
         this.$api.login(this.username, this.password)
+          .then((response) => {
+            this.$store.token = response.token
+            this.$store.authenticated = true;
+          } )
           .catch((err) => {
             this.error = true;
             this.showingLoadingSpinner = false

@@ -6,6 +6,7 @@ describe('Login Component Tests', () => {
   let component;
   let $api;
   let $route;
+  let $store;
 
   beforeEach(() => {
     $api = {
@@ -13,11 +14,13 @@ describe('Login Component Tests', () => {
     };
 
     $route = {};
+    $store = {test: 'hello'};
 
     component = mount(login, {
-      mocks : {
+      mocks: {
         $api,
-        $route
+        $route,
+        $store
       }
     });
   });
@@ -65,14 +68,25 @@ describe('Login Component Tests', () => {
     attemptLogin();
     assertLoadingSpinnerIsShowing();
 
-    return component.vm.$nextTick().then ( () => {
+    return component.vm.$nextTick().then(() => {
       assertLoadingSpinnerIsNotShowing();
       done();
     });
   });
 
+  test('successful login stores token in store', (done) => {
+    $api.login = jest.fn(() => Promise.resolve({token: 'xyz12345', id: 54321}));
+    attemptLogin();
+
+    return component.vm.$nextTick().then(() => {
+      expect(component.vm.$store.token).toBe('xyz12345');
+      expect(component.vm.$store.authenticated).toBe(true);
+      done();
+    });
+  });
+
   function assertLoginErrorMessageIsShowing(done) {
-    return component.vm.$nextTick().then ( () => {
+    return component.vm.$nextTick().then(() => {
       expect(component.contains('div.notification.is-danger')).toBe(true);
       done();
     });

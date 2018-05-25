@@ -15,7 +15,7 @@ Vue.mixin({
 });
 
 let store = {
-  logged_in : false,
+  authenticated : false,
   token: ''
 };
 
